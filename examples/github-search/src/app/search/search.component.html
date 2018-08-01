@@ -1,0 +1,11 @@
+<h1>Github Repo Search</h1>
+
+<div>
+  <input type="text" placehold="Repo name" [formControl]="inputSearch">
+</div>
+
+<div *ngIf="isLoaded">
+  <ul *ngFor="let result of $results">
+    <li><strong>{{ result.name }}</strong> - <a href="{{ result.html_url }}">{{ result.html_url }}</a></li>
+  </ul>
+</div>
