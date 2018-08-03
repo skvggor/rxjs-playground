@@ -1,11 +1,21 @@
 <h1>Github Repo Search</h1>
 
-<div>
-  <input type="text" placehold="Repo name" [formControl]="inputSearch">
-</div>
+<mat-form-field>
+  <input type="text" matInput placeholder="Search the repo..." [formControl]="inputSearch">
+</mat-form-field>
 
-<div *ngIf="isLoaded">
-  <ul *ngFor="let result of $results">
-    <li><strong>{{ result.name }}</strong> - <a href="{{ result.html_url }}">{{ result.html_url }}</a></li>
-  </ul>
-</div>
+<mat-card *ngIf="isLoaded">
+  <mat-card-header>
+    <mat-card-title>Results:</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-list *ngFor="let result of $results">
+      <mat-list-item>
+        <mat-icon mat-list-icon>star</mat-icon>
+        <p mat-line>{{ result.name }}</p>
+        <p mat-line><a href="{{ result.html_url }}">{{ result.html_url }}</a></p>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

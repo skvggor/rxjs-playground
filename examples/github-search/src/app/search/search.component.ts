@@ -34,13 +34,18 @@ export class SearchComponent implements OnInit {
 
     this.$results = this.inputSearch.valueChanges
       .pipe(
+        tap(value => {
+          if (value.length < this.minChars) {
+            this.isLoaded = false
+          }
+        }),
         filter(value => value.length >= this.minChars),
         debounceTime(this.timeout),
         map(repoName => `${this.url}${repoName}`),
         retry(this.maxAttempts),
         switchMap(url => this.http.get(url)),
         map(json => json['items']),
-        tap(() => this.isLoaded = true),
+        tap(() => this.isLoaded = true)
       )
       .subscribe(items => this.$results = items)
   }
